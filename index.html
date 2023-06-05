@@ -48,19 +48,19 @@
             } else if (input.split("x").length == 2 && input.split("+").length == 1 && input.split("-").length == 1) {
                 input = input.split("x");
                 drawToGrid(1, 1, "#f00", 0);
-                drawToGrid(2+parseInt(input[0]), 1+parseInt(input[1]), "#00f", 0);
+                drawToGrid(2+parseInt(input[0]), 2+parseInt(input[1]), "#00f", 0);
             } else if (input.split("+").length == 2 && input.split("-").length == 1) {
                 input = input.split("+");
                 input[0] = input[0].split("x");
                 console.log(input)
                 drawToGrid(1, 1, "#f00", 0);
-                drawToGrid(2+parseInt(input[0][0]), 1+parseInt(input[0][1]), "#00f", "+" + input[1]);
+                drawToGrid(2+parseInt(input[0][0]), 2+parseInt(input[0][1]), "#00f", "+" + input[1]);
             } else {
                 input = input.split("-");
                 input[0] = input[0].split("x");
                 console.log(input)
                 drawToGrid(1, 1, "#f00", 0);
-                drawToGrid(2+parseInt(input[0][0]), 1+parseInt(input[0][1]), "#00f", "-" + input[1]);
+                drawToGrid(2+parseInt(input[0][0]), 2+parseInt(input[0][1]), "#00f", "-" + input[1]);
             }
         }
         draw();
