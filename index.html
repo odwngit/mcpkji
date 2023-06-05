@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mcpkji</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>mcpkji</h1>
+    <h3>minecraft parkour jump interpreter</h3>
+    <hr>
+    <span>jump input</span><br>
+    <input id="jumpInput" type="text" value="3b" onchange="draw()">
+    <br><br>
+    <canvas width="800" height="700" id="canvas"></canvas>
+    <script src="Gami.js"></script>
+    <script>
+        const gami = new GamiCanvas("canvas");
+        let input = document.getElementById("jumpInput").value;
+        let gridSize = 50;
+        function drawToGrid(x, y, c, t) {
+            gami.setFill(c)
+            gami.rect(x*gridSize, y*gridSize, gridSize, gridSize)
+            gami.setFill("#fff")
+            gami.text(t, x*gridSize, (y*gridSize)+gridSize/1.5, 20, "serif")
+        }
+        function drawGrid() {
+            for (let i = 0 ; i < 800/gridSize ; i++) {
+                gami.setFill("#444")
+                gami.rect(i*gridSize, 0, 1, 700)
+            }
+            for (let i = 0 ; i < 700/gridSize ; i++) {
+                gami.rect(0, i*gridSize, 800, 1)
+            }
+        }
+
+        function draw() {
+            input = document.getElementById("jumpInput").value;
+            gami.clear();
+            drawGrid();
+            if (input.endsWith("b")) {
+                drawToGrid(1, 1, "#f00", 0);
+                drawToGrid(2+parseInt(input.substring(0, input.length-1)), 1, "#00f", 0);
+            } else if (input.split("x").length == 2 && input.split("+").length == 1 && input.split("-").length == 1) {
+                input = input.split("x");
+                drawToGrid(1, 1, "#f00", 0);
+                drawToGrid(2+parseInt(input[0]), 1+parseInt(input[1]), "#00f", 0);
+            } else if (input.split("+").length == 2 && input.split("-").length == 1) {
+                input = input.split("+");
+                input[0] = input[0].split("x");
+                console.log(input)
+                drawToGrid(1, 1, "#f00", 0);
+                drawToGrid(2+parseInt(input[0][0]), 1+parseInt(input[0][1]), "#00f", "+" + input[1]);
+            } else {
+                input = input.split("-");
+                input[0] = input[0].split("x");
+                console.log(input)
+                drawToGrid(1, 1, "#f00", 0);
+                drawToGrid(2+parseInt(input[0][0]), 1+parseInt(input[0][1]), "#00f", "-" + input[1]);
+            }
+        }
+        draw();
+        document.getElementById("jumpInput").addEventListener('input', function(e) {
+            draw();
+        });
+    </script>
+</body>
+</html>
